@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ property.title }}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-success">
+
+    <div class="container">
+
+        <a class="navbar-brand"
+           href="/">
+            🌾 LandHub Myanmar
+        </a>
+
+    </div>
+
+</nav>
+
+<div class="container py-5">
+
+    <div class="row">
+
+        <div class="col-lg-6">
+
+            <img src="https://placehold.co/800x500?text=Property+Photo"
+                 class="img-fluid rounded shadow">
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <h2>{{ property.title }}</h2>
+
+            <hr>
+
+            <h4 class="text-success">
+                MMK {{ "{:,}".format(property.price) }}
+            </h4>
+
+            <p>
+                <strong>Listing Code:</strong>
+                {{ property.listing_code }}
+            </p>
+
+            <p>
+                <strong>Property Type:</strong>
+                {{ property.property_type }}
+            </p>
+
+            <p>
+                <strong>Area:</strong>
+                {{ property.area }}
+                {{ property.area_unit }}
+            </p>
+
+            <p>
+                <strong>Township:</strong>
+                {{ property.township }}
+            </p>
+
+            <p>
+                <strong>Address:</strong>
+                {{ property.address }}
+            </p>
+
+            <p>
+                <strong>Description:</strong>
+                {{ property.description }}
+            </p>
+
+            <hr>
+
+            <h5>Contact</h5>
+
+            <p>{{ property.contact_person }}</p>
+
+            <a href="tel:{{ property.agent.phone }}"
+               class="btn btn-success">
+                📞 Call
+            </a>
+
+            <a href="viber://chat?number={{ property.agent.viber }}"
+               class="btn btn-primary">
+                 Viber
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
