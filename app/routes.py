@@ -79,7 +79,14 @@ def dashboard():
             url_for("main.login")
         )
 
-    return f"Welcome, {current_user.name}"
+    properties = Property.query.filter_by(
+        agent_id=current_user.id
+    ).all()
+
+    return render_template(
+        "dashboard.html",
+        properties=properties
+    )
 
 
 @main.route("/logout")

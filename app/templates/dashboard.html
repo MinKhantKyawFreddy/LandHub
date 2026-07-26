@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Dashboard - LandHub Myanmar</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+</head>
+
+
+<body class="bg-light">
+
+
+<nav class="navbar navbar-dark bg-success">
+
+<div class="container">
+
+<a class="navbar-brand" href="/">
+🌾 LandHub Myanmar
+</a>
+
+<a class="btn btn-light"
+href="/logout">
+
+Logout
+
+</a>
+
+</div>
+
+</nav>
+
+
+
+<div class="container py-5">
+
+
+<h2>
+Welcome {{ current_user.name }}
+</h2>
+
+
+<hr>
+
+
+<div class="d-flex justify-content-between">
+
+<h4>
+My Listings
+</h4>
+
+
+<a href="#"
+class="btn btn-success">
+
++ Add Property
+
+</a>
+
+
+</div>
+
+
+
+<br>
+
+
+
+{% if properties %}
+
+
+<div class="row">
+
+
+{% for property in properties %}
+
+
+<div class="col-md-4 mb-4">
+
+
+<div class="card shadow">
+
+
+<div class="card-body">
+
+
+<h5>
+{{ property.title }}
+</h5>
+
+
+<p>
+📍 {{ property.township }}, {{ property.city }}
+</p>
+
+
+<p>
+MMK {{ "{:,}".format(property.price) }}
+</p>
+
+
+<p>
+
+Status:
+
+{% if property.status == "Published" %}
+
+<span class="badge bg-success">
+Published
+</span>
+
+{% else %}
+
+<span class="badge bg-secondary">
+Draft
+</span>
+
+{% endif %}
+
+</p>
+
+
+<a href="{{ url_for('main.property_detail', property_id=property.id) }}"
+class="btn btn-outline-success">
+
+View
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+{% else %}
+
+
+<div class="alert alert-info">
+
+No properties yet.
+
+</div>
+
+
+{% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>
