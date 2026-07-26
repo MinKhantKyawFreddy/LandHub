@@ -11,14 +11,29 @@ main = Blueprint("main", __name__)
 @main.route("/")
 def home():
 
-    properties = Property.query.filter_by(
+    search = request.args.get("search", "").strip()
+
+    query = Property.query.filter_by(
         status="Published"
-    ).all()
+    )
+
+    if search:
+
+        query = query.filter(
+            (Property.title.ilike(f"%{search}%")) |
+            (Property.township.ilike(f"%{search}%")) |
+            (Property.city.ilike(f"%{search}%")) |
+            (Property.listing_code.ilike(f"%{search}%"))
+        )
+
+    properties = query.all()
 
     return render_template(
         "home.html",
-        properties=properties
+        properties=properties,
+        search=search
     )
+
 
 @main.route("/property/<int:property_id>")
 def property_detail(property_id):
@@ -26,7 +41,7 @@ def property_detail(property_id):
     property = Property.query.get_or_404(property_id)
 
     return render_template(
-        "property_detail.html",
+        "property_details.html",
         property=property
     )
 

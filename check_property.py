@@ -10,7 +10,7 @@ with app.app_context():
     for p in properties:
         print(
             p.listing_code,
-            p.title,
+            p.city,
             p.township,
-            p.price
+            p.title
         )

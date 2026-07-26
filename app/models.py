@@ -94,6 +94,11 @@ class Property(db.Model):
         nullable=False
     )
 
+    city = db.Column(
+        db.String(100),
+        nullable=False
+    )
+
     township = db.Column(
         db.String(100),
         nullable=False

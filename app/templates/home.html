@@ -32,12 +32,53 @@
         </p>
     </div>
 
+    <!-- Search Form -->
+    <div class="row justify-content-center mb-5">
+
+    <div class="col-md-8">
+
+        <form method="GET">
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    name="search"
+                    class="form-control"
+                    placeholder="Search by township, title or listing code..."
+                    value="{{ search }}">
+
+                <button
+                    class="btn btn-success"
+                    type="submit">
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+    {% if search %}
+
+<p class="text-center text-muted mb-4">
+    Search results for:
+    <strong>{{ search }}</strong>
+</p>
+
+{% endif %}
+
     <!-- Property Cards -->
     <div class="container">
 
         {% if properties %}
 
-        <div class="row">
+        <div class="row justify-content-center mb-5">
 
             {% for property in properties %}
 
@@ -93,11 +134,21 @@
 
         {% else %}
 
-        <div class="alert alert-info text-center">
-            No properties available.
-        </div>
+<div class="alert alert-info text-center">
 
-        {% endif %}
+    {% if search %}
+
+        No properties matched your search.
+
+    {% else %}
+
+        No properties available yet.
+
+    {% endif %}
+
+</div>
+
+{% endif %}
 
     </div>
 

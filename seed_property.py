@@ -14,6 +14,7 @@ with app.app_context():
         price_negotiable=True,
         area=1.5,
         area_unit="Acres",
+        city="Mandalay",
         township="Aungchanthar",
         address="Beside CPM Motor Factory,",
         description="Flat land with road access. Will install transformers for electricity on request with additional charges.",
