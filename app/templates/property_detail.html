@@ -123,23 +123,38 @@
 
 
 
-            <!-- Contact -->
+            <!-- Contact Section -->
 
-            <h5>
-                Contact
-            </h5>
+<div class="card shadow mt-4">
+
+    <div class="card-header bg-success text-white">
+
+        📞 Contact Agent
+
+    </div>
 
 
-            <p>
-                {{ property.contact_person }}
-            </p>
+    <div class="card-body">
 
+
+        <h5>
+            {{ property.contact_person }}
+        </h5>
+
+
+        <p class="text-muted">
+            Land Agent
+        </p>
+
+
+
+        <div class="d-grid gap-2">
 
 
             <a href="tel:{{ property.agent.phone }}"
                class="btn btn-success">
 
-                📞 Call
+                📞 Call Now
 
             </a>
 
@@ -148,10 +163,9 @@
             <a href="viber://chat?number={{ property.agent.viber }}"
                class="btn btn-primary">
 
-                💬 Viber
+                💬 Chat on Viber
 
             </a>
-
 
 
         </div>
@@ -159,6 +173,8 @@
 
     </div>
 
+
+</div>
 
 
 
