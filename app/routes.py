@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_user, logout_user, current_user
 from werkzeug.security import check_password_hash
 
-from app.models import Agent
+from app.models import Agent, Property
 
 
 main = Blueprint("main", __name__)
@@ -10,7 +10,15 @@ main = Blueprint("main", __name__)
 
 @main.route("/")
 def home():
-    return "LandHub Myanmar is running!"
+
+    properties = Property.query.filter_by(
+        status="Published"
+    ).all()
+
+    return render_template(
+        "home.html",
+        properties=properties
+    )
 
 
 @main.route("/login", methods=["GET", "POST"])
