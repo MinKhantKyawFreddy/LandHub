@@ -4,7 +4,18 @@ from flask_login import LoginManager
 
 
 db = SQLAlchemy()
+
 login_manager = LoginManager()
+
+login_manager.login_view = "main.login"
+
+
+@login_manager.user_loader
+def load_user(agent_id):
+
+    from app.models import Agent
+
+    return Agent.query.get(int(agent_id))
 
 
 def create_app():
@@ -19,11 +30,15 @@ def create_app():
 
     login_manager.init_app(app)
 
+
     from app.routes import main
 
     app.register_blueprint(main)
 
+
     with app.app_context():
+
         db.create_all()
+
 
     return app
