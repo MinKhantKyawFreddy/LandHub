@@ -41,7 +41,7 @@ def property_detail(property_id):
     property = Property.query.get_or_404(property_id)
 
     return render_template(
-        "property_details.html",
+        "property_detail.html",
         property=property
     )
 
