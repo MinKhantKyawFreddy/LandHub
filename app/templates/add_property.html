@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Add Property - LandHub Myanmar</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+</head>
+
+
+<body class="bg-light">
+
+
+<nav class="navbar navbar-dark bg-success">
+
+<div class="container">
+
+<a class="navbar-brand" href="/">
+🌾 LandHub Myanmar
+</a>
+
+</div>
+
+</nav>
+
+
+
+<div class="container py-5">
+
+
+<div class="card shadow">
+
+
+<div class="card-header bg-success text-white">
+
+<h3 class="mb-0">
+Add New Property
+</h3>
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<form method="POST">
+
+
+<label class="form-label">
+Listing Code
+</label>
+
+<input 
+class="form-control mb-3"
+name="listing_code"
+placeholder="Example: LH001"
+required>
+
+
+
+<label class="form-label">
+Property Title
+</label>
+
+<input 
+class="form-control mb-3"
+name="title"
+placeholder="Example: 2 Acre Farm Near Mandalay"
+required>
+
+
+
+<label class="form-label">
+Property Type
+</label>
+
+<input 
+class="form-control mb-3"
+name="property_type"
+placeholder="Agricultural Land / House Land"
+required>
+
+
+
+<label class="form-label">
+Price (MMK)
+</label>
+
+<input 
+class="form-control mb-3"
+name="price"
+type="number"
+placeholder="Example: 50000000"
+required>
+
+
+
+<label class="form-label">
+Area
+</label>
+
+<input 
+class="form-control mb-3"
+name="area"
+type="number"
+step="0.01"
+placeholder="Example: 2"
+required>
+
+
+
+<label class="form-label">
+Area Unit
+</label>
+
+<select 
+class="form-control mb-3"
+name="area_unit">
+
+
+<option value="acre">
+Acre
+</option>
+
+
+<option value="sqft">
+Square Feet
+</option>
+
+
+</select>
+
+
+
+<label class="form-label">
+City
+</label>
+
+<input 
+class="form-control mb-3"
+name="city"
+placeholder="Example: Mandalay"
+required>
+
+
+
+<label class="form-label">
+Township
+</label>
+
+<input 
+class="form-control mb-3"
+name="township"
+placeholder="Example: Amarapura"
+required>
+
+
+
+<label class="form-label">
+Address
+</label>
+
+<input 
+class="form-control mb-3"
+name="address"
+placeholder="Full address">
+
+
+
+<label class="form-label">
+Description
+</label>
+
+<textarea 
+class="form-control mb-3"
+name="description"
+rows="4"
+placeholder="Describe the land">
+
+</textarea>
+
+
+
+<label class="form-label">
+Contact Person
+</label>
+
+<input 
+class="form-control mb-3"
+name="contact_person"
+placeholder="Example: Aung Myo Nyunt">
+
+
+
+<hr>
+
+
+<h5>
+Google Map Location
+</h5>
+
+
+<label class="form-label">
+Latitude
+</label>
+
+<input 
+class="form-control mb-3"
+name="latitude"
+placeholder="Example: 21.9588">
+
+
+
+<label class="form-label">
+Longitude
+</label>
+
+<input 
+class="form-control mb-3"
+name="longitude"
+placeholder="Example: 96.0891">
+
+
+
+<hr>
+
+
+<label class="form-label">
+Listing Status
+</label>
+
+
+<select 
+class="form-control mb-4"
+name="status">
+
+
+<option value="Draft">
+Draft - Hidden from buyers
+</option>
+
+
+<option value="Published">
+Published - Visible to buyers
+</option>
+
+
+</select>
+
+
+
+
+<button class="btn btn-success w-100">
+
+Save Property
+
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</body>
+
+</html>

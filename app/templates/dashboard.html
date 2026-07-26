@@ -16,20 +16,26 @@ rel="stylesheet">
 
 <nav class="navbar navbar-dark bg-success">
 
-<div class="container">
+    <div class="container">
 
-<a class="navbar-brand" href="/">
-🌾 LandHub Myanmar
-</a>
+        <a class="navbar-brand fw-bold" href="/">
+            🌾 LandHub Myanmar
+        </a>
 
-<a class="btn btn-light"
-href="/logout">
 
-Logout
+        <div>
 
-</a>
+            <a class="btn btn-light"
+               href="{{ url_for('main.logout') }}">
 
-</div>
+                Logout
+
+            </a>
+
+        </div>
+
+
+    </div>
 
 </nav>
 
@@ -38,128 +44,215 @@ Logout
 <div class="container py-5">
 
 
-<h2>
-Welcome {{ current_user.name }}
-</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
 
-<hr>
+        <div>
+
+            <h2>
+                Welcome, {{ current_user.name }}
+            </h2>
+
+            <p class="text-muted">
+                Manage your land listings here.
+            </p>
+
+        </div>
 
 
-<div class="d-flex justify-content-between">
 
-<h4>
-My Listings
-</h4>
+        <a href="{{ url_for('main.add_property') }}"
+           class="btn btn-success">
+
+            + Add Property
+
+        </a>
 
 
-<a href="#"
-class="btn btn-success">
+    </div>
 
-+ Add Property
 
-</a>
+
+
+    <hr>
+
+
+
+
+    <h4 class="mb-4">
+
+        My Listings
+
+    </h4>
+
+
+
+
+    {% if properties %}
+
+
+
+    <div class="row">
+
+
+
+        {% for property in properties %}
+
+
+
+        <div class="col-md-4 mb-4">
+
+
+
+            <div class="card shadow h-100">
+
+
+
+                <div class="card-body">
+
+
+
+                    <h5 class="card-title">
+
+                        {{ property.title }}
+
+                    </h5>
+
+
+
+                    <p class="text-muted">
+
+                        📍 {{ property.township }},
+                        {{ property.city }}
+
+                    </p>
+
+
+
+
+                    <p class="fw-bold text-success">
+
+                        MMK {{ "{:,}".format(property.price) }}
+
+                    </p>
+
+
+
+                    <p>
+
+                        📏 {{ property.area }}
+                        {{ property.area_unit }}
+
+                    </p>
+
+
+
+
+                    <p>
+
+                        Status:
+
+                        {% if property.status == "Published" %}
+
+                        <span class="badge bg-success">
+
+                            Published
+
+                        </span>
+
+
+                        {% else %}
+
+                        <span class="badge bg-secondary">
+
+                            Draft
+
+                        </span>
+
+
+                        {% endif %}
+
+
+                    </p>
+
+
+
+
+                    <div class="d-flex gap-2">
+
+
+
+                        <a href="{{ url_for('main.property_detail', property_id=property.id) }}"
+
+                           class="btn btn-outline-success">
+
+                            View
+
+                        </a>
+
+
+
+
+
+                        <a href="{{ url_for('main.edit_property', property_id=property.id) }}"
+
+                           class="btn btn-warning">
+
+                            Edit
+
+                        </a>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+        {% endfor %}
+
+
+
+
+    </div>
+
+
+
+    {% else %}
+
+
+
+    <div class="alert alert-info text-center">
+
+        No properties available yet.
+
+        <br>
+
+        Click "Add Property" to create your first listing.
+
+    </div>
+
+
+
+    {% endif %}
+
+
 
 
 </div>
 
-
-
-<br>
-
-
-
-{% if properties %}
-
-
-<div class="row">
-
-
-{% for property in properties %}
-
-
-<div class="col-md-4 mb-4">
-
-
-<div class="card shadow">
-
-
-<div class="card-body">
-
-
-<h5>
-{{ property.title }}
-</h5>
-
-
-<p>
-📍 {{ property.township }}, {{ property.city }}
-</p>
-
-
-<p>
-MMK {{ "{:,}".format(property.price) }}
-</p>
-
-
-<p>
-
-Status:
-
-{% if property.status == "Published" %}
-
-<span class="badge bg-success">
-Published
-</span>
-
-{% else %}
-
-<span class="badge bg-secondary">
-Draft
-</span>
-
-{% endif %}
-
-</p>
-
-
-<a href="{{ url_for('main.property_detail', property_id=property.id) }}"
-class="btn btn-outline-success">
-
-View
-
-</a>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-{% endfor %}
-
-
-</div>
-
-
-{% else %}
-
-
-<div class="alert alert-info">
-
-No properties yet.
-
-</div>
-
-
-{% endif %}
-
-
-</div>
 
 
 </body>

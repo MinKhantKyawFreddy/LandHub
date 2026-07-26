@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, current_user
 from werkzeug.security import check_password_hash
 
 from app.models import Agent, Property
+from app import db
 
 
 main = Blueprint("main", __name__)
@@ -88,6 +89,109 @@ def dashboard():
         properties=properties
     )
 
+@main.route("/property/add", methods=["GET", "POST"])
+def add_property():
+
+    if not current_user.is_authenticated:
+        return redirect(
+            url_for("main.login")
+        )
+
+
+    if request.method == "POST":
+
+        new_property = Property(
+
+            agent_id=current_user.id,
+
+            listing_code=request.form["listing_code"],
+
+            title=request.form["title"],
+
+            property_type=request.form["property_type"],
+
+            price=request.form["price"],
+
+            area=request.form["area"],
+
+            area_unit=request.form["area_unit"],
+
+            city=request.form["city"],
+
+            township=request.form["township"],
+
+            address=request.form["address"],
+
+            description=request.form["description"],
+
+            contact_person=request.form["contact_person"],
+
+            status=request.form["status"],
+
+            latitude=request.form["latitude"],
+
+            longitude=request.form["longitude"]
+
+        )
+
+
+        db.session.add(new_property)
+
+        db.session.commit()
+
+
+        return redirect(
+            url_for("main.dashboard")
+        )
+
+
+    return render_template(
+        "add_property.html"
+    )
+
+@main.route("/property/edit/<int:property_id>", methods=["GET", "POST"])
+def edit_property(property_id):
+
+    if not current_user.is_authenticated:
+        return redirect(
+            url_for("main.login")
+        )
+
+
+    property = Property.query.get_or_404(property_id)
+
+
+    if property.agent_id != current_user.id:
+        return "Unauthorized"
+
+
+    if request.method == "POST":
+
+        property.title = request.form["title"]
+
+        property.price = request.form["price"]
+
+        property.city = request.form["city"]
+
+        property.township = request.form["township"]
+
+        property.description = request.form["description"]
+
+        property.status = request.form["status"]
+
+
+        db.session.commit()
+
+
+        return redirect(
+            url_for("main.dashboard")
+        )
+
+
+    return render_template(
+        "edit_property.html",
+        property=property
+    )
 
 @main.route("/logout")
 def logout():

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Property</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+</head>
+
+
+<body class="bg-light">
+
+
+<div class="container py-5">
+
+
+<h2>
+Edit Property
+</h2>
+
+
+<form method="POST">
+
+
+<label class="form-label">
+Title
+</label>
+
+<input 
+class="form-control mb-3"
+name="title"
+value="{{ property.title }}">
+
+
+
+<label class="form-label">
+Property Type
+</label>
+
+<input 
+class="form-control mb-3"
+name="property_type"
+value="{{ property.property_type }}">
+
+
+
+<label class="form-label">
+Price
+</label>
+
+<input 
+class="form-control mb-3"
+name="price"
+value="{{ property.price }}">
+
+
+
+<label class="form-label">
+Area
+</label>
+
+<input 
+class="form-control mb-3"
+name="area"
+value="{{ property.area }}">
+
+
+
+<label class="form-label">
+Area Unit
+</label>
+
+<input 
+class="form-control mb-3"
+name="area_unit"
+value="{{ property.area_unit }}">
+
+
+
+<label class="form-label">
+City
+</label>
+
+<input 
+class="form-control mb-3"
+name="city"
+value="{{ property.city }}">
+
+
+
+<label class="form-label">
+Township
+</label>
+
+<input 
+class="form-control mb-3"
+name="township"
+value="{{ property.township }}">
+
+
+
+<label class="form-label">
+Address
+</label>
+
+<input 
+class="form-control mb-3"
+name="address"
+value="{{ property.address }}">
+
+
+
+<label class="form-label">
+Description
+</label>
+
+<textarea 
+class="form-control mb-3"
+name="description">{{ property.description }}</textarea>
+
+
+
+<label class="form-label">
+Contact Person
+</label>
+
+<input 
+class="form-control mb-3"
+name="contact_person"
+value="{{ property.contact_person }}">
+
+
+
+<label class="form-label">
+Latitude
+</label>
+
+<input 
+class="form-control mb-3"
+name="latitude"
+value="{{ property.latitude }}">
+
+
+
+<label class="form-label">
+Longitude
+</label>
+
+<input 
+class="form-control mb-3"
+name="longitude"
+value="{{ property.longitude }}">
+
+
+
+<label class="form-label">
+Status
+</label>
+
+
+<select class="form-control mb-4"
+name="status">
+
+
+<option value="Draft"
+{% if property.status == "Draft" %}selected{% endif %}>
+Draft
+</option>
+
+
+<option value="Published"
+{% if property.status == "Published" %}selected{% endif %}>
+Published
+</option>
+
+
+</select>
+
+
+
+
+<button class="btn btn-success">
+
+Save Changes
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+</body>
+
+</html>
