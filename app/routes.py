@@ -202,3 +202,10 @@ def logout():
         url_for("main.login")
     )
 
+@main.route("/reset-db")
+def reset_db():
+
+    db.drop_all()
+    db.create_all()
+
+    return "Database reset successfully"
