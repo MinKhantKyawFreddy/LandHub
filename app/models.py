@@ -75,7 +75,7 @@ class Property(db.Model):
     )
 
     price = db.Column(
-        db.Integer,
+        db.BigInteger,
         nullable=False
     )
 
