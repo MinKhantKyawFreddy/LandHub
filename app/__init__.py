@@ -25,8 +25,10 @@ def create_app():
 
     app.config["SECRET_KEY"] = "change-this-later"
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL",
-    )
+    app.config["SQLALCHEMY_DATABASE_URI"] = (
+    os.environ.get("DATABASE_URL")
+    or "sqlite:///instance/landhub.db")
+
 
     db.init_app(app)
 
