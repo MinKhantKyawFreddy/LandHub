@@ -245,8 +245,11 @@ def edit_property(property_id):
 def uploaded_file(filename):
 
     return send_from_directory(
-        "uploads",
-        filename
+        os.path.join(
+            os.getcwd(),
+            "uploads"
+        ),
+        filename.replace("uploads/", "")
     )
 
 @main.route("/logout")

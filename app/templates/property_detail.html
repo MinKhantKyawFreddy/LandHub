@@ -10,6 +10,7 @@
 
     <title>{{ property.title }}</title>
 
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
@@ -25,12 +26,15 @@
 
         <a class="navbar-brand"
            href="/">
+
             🌾 LandHub Myanmar
+
         </a>
 
     </div>
 
 </nav>
+
 
 
 
@@ -40,15 +44,62 @@
     <div class="row">
 
 
-        <!-- Property Image -->
+        <!-- Property Images -->
 
         <div class="col-lg-6 mb-4">
 
-            <img src="https://placehold.co/800x500?text=Property+Photo"
-                 class="img-fluid rounded shadow">
+
+            {% if images %}
+
+
+            <div class="row">
+
+
+                {% for image in images %}
+
+
+                <div class="col-md-6 mb-3">
+
+
+                    <img
+
+                    src="{{ url_for('main.uploaded_file', filename=image.image_path) }}"
+
+                    class="img-fluid rounded shadow"
+
+                    style="width:100%; height:220px; object-fit:cover;"
+
+                    >
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+            {% else %}
+
+
+            <img
+
+            src="https://placehold.co/800x500?text=No+Property+Photo"
+
+            class="img-fluid rounded shadow"
+
+
+            >
+
+
+            {% endif %}
+
 
 
         </div>
+
 
 
 
@@ -59,11 +110,14 @@
 
 
             <h2>
+
                 {{ property.title }}
+
             </h2>
 
 
             <hr>
+
 
 
             <h4 class="text-success">
@@ -74,26 +128,44 @@
 
 
 
+
             <p>
+
                 <strong>Listing Code:</strong>
+
                 {{ property.listing_code }}
+
             </p>
 
 
+
+
             <p>
+
                 <strong>Property Type:</strong>
+
                 {{ property.property_type }}
+
             </p>
 
 
+
+
             <p>
+
                 <strong>Area:</strong>
+
                 {{ property.area }}
+
                 {{ property.area_unit }}
+
             </p>
 
 
+
+
             <p>
+
                 <strong>Location:</strong>
 
                 📍 {{ property.township }},
@@ -102,7 +174,10 @@
             </p>
 
 
+
+
             <p>
+
                 <strong>Address:</strong>
 
                 {{ property.address }}
@@ -111,7 +186,9 @@
 
 
 
+
             <p>
+
                 <strong>Description:</strong>
 
                 {{ property.description }}
@@ -119,60 +196,94 @@
             </p>
 
 
-            <hr>
 
 
 
-            <!-- Contact Section -->
+            <!-- Contact Agent -->
 
-<div class="card shadow mt-4">
-
-    <div class="card-header bg-success text-white">
-
-        📞 Contact Agent
-
-    </div>
+            <div class="card shadow mt-4">
 
 
-    <div class="card-body">
+                <div class="card-header bg-success text-white">
 
+                    📞 Contact Agent
 
-        <h5>
-            {{ property.contact_person }}
-        </h5>
-
-        <p>
-            📞 {{ property.agent.phone }}
-        </p>
-
-        <p>
-            💬 {{ property.agent.viber }}
-        </p>
-
-        <p class="text-muted">
-            Land Agent
-        </p>
+                </div>
 
 
 
-        <div class="d-grid gap-2">
+                <div class="card-body">
 
 
-            <a href="tel:{{ property.agent.phone }}"
-               class="btn btn-success">
+                    <h5>
 
-                📞 Call Now
+                        {{ property.contact_person }}
 
-            </a>
-
+                    </h5>
 
 
-            <a href="viber://chat?number={{ property.agent.viber }}"
-               class="btn btn-primary">
 
-                💬 Chat on Viber
+                    <p>
 
-            </a>
+                        📞 {{ property.agent.phone }}
+
+                    </p>
+
+
+
+                    <p>
+
+                        💬 {{ property.agent.viber }}
+
+                    </p>
+
+
+
+                    <p class="text-muted">
+
+                        Land Agent
+
+                    </p>
+
+
+
+
+                    <div class="d-grid gap-2">
+
+
+                        <a
+
+                        href="tel:{{ property.agent.phone }}"
+
+                        class="btn btn-success">
+
+                            📞 Call Now
+
+                        </a>
+
+
+
+                        <a
+
+                        href="viber://chat?number={{ property.agent.viber }}"
+
+                        class="btn btn-primary">
+
+                            💬 Chat on Viber
+
+                        </a>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
 
 
         </div>
@@ -181,11 +292,11 @@
     </div>
 
 
-</div>
 
 
 
-    <!-- Google Map Section -->
+
+    <!-- Google Map -->
 
     <div class="card shadow mt-5">
 
@@ -198,7 +309,9 @@
 
 
 
+
         <div class="card-body">
+
 
 
             {% if property.latitude and property.longitude %}
@@ -207,17 +320,17 @@
 
             <iframe
 
-                width="100%"
+            width="100%"
 
-                height="400"
+            height="400"
 
-                style="border:0"
+            style="border:0"
 
-                loading="lazy"
+            loading="lazy"
 
-                allowfullscreen
+            allowfullscreen
 
-                src="https://www.google.com/maps?q={{ property.latitude }},{{ property.longitude }}&output=embed">
+            src="https://www.google.com/maps?q={{ property.latitude }},{{ property.longitude }}&output=embed">
 
             </iframe>
 
@@ -232,13 +345,17 @@
 
             class="btn btn-success mt-3">
 
+
                 Open in Google Maps
+
 
             </a>
 
 
 
+
             {% else %}
+
 
 
             <p class="text-muted">
@@ -246,6 +363,7 @@
                 Location not available yet.
 
             </p>
+
 
 
 

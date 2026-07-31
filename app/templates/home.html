@@ -2,175 +2,245 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LandHub Myanmar</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        LandHub Myanmar
+    </title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
 </head>
+
 
 <body class="bg-light">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-dark bg-success">
 
-        <div class="container">
+<nav class="navbar navbar-dark bg-success">
 
-            <a class="navbar-brand fw-bold" href="/">
-             🌾 LandHub Myanmar
-            </a>
+    <div class="container">
+
+        <a class="navbar-brand" href="/">
+
+            🌾 LandHub Myanmar
+
+        </a>
+
+    </div>
+
+</nav>
 
 
-            <a class="btn btn-light"
-            href="{{ url_for('main.login') }}">
 
-                Agent Login
+<div class="container py-5">
 
-         </a>
+
+    <h2 class="mb-4">
+
+        Available Properties
+
+    </h2>
+
+
+
+
+    <!-- Search -->
+
+    <form method="GET" class="mb-4">
+
+
+        <div class="input-group">
+
+
+            <input
+
+            type="text"
+
+            name="search"
+
+            class="form-control"
+
+            placeholder="Search township, city or listing code..."
+
+            value="{{ search }}">
+
+
+
+            <button class="btn btn-success">
+
+                Search
+
+            </button>
 
 
         </div>
 
-    </nav>
 
-    <!-- Hero Section -->
-    <div class="container text-center py-5">
-        <h1 class="display-5 fw-bold">
-            Find Your Perfect Land
-        </h1>
+    </form>
 
-        <p class="lead text-muted">
-            Browse verified land listings across Myanmar.
-        </p>
-    </div>
 
-    <!-- Search Form -->
-    <div class="row justify-content-center mb-5">
 
-    <div class="col-md-8">
 
-        <form method="GET">
 
-            <div class="input-group">
+    <div class="row">
 
-                <input
-                    type="text"
-                    name="search"
-                    class="form-control"
-                    placeholder="Search by township, title or listing code..."
-                    value="{{ search }}">
 
-                <button
-                    class="btn btn-success"
-                    type="submit">
 
-                    Search
+        {% for property in properties %}
 
-                </button>
 
-            </div>
 
-        </form>
+        <div class="col-lg-4 col-md-6 mb-4">
 
-    </div>
 
-</div>
 
-    {% if search %}
+            <div class="card shadow h-100">
 
-<p class="text-center text-muted mb-4">
-    Search results for:
-    <strong>{{ search }}</strong>
-</p>
 
-{% endif %}
 
-    <!-- Property Cards -->
-    <div class="container">
+                <!-- Property Image -->
 
-        {% if properties %}
+                {% if property.images %}
 
-        <div class="row justify-content-center mb-5">
 
-            {% for property in properties %}
+                <img
 
-            <div class="col-lg-4 col-md-6 mb-4">
+                src="{{ url_for('main.uploaded_file', filename=property.images[0].image_path) }}"
 
-                <div class="card shadow h-100">
+                class="card-img-top"
 
-                    <!-- Placeholder Image -->
-                    <img src="https://placehold.co/600x400?text=Land+Photo"
-                         class="card-img-top"
-                         alt="Property Image">
+                style="height:250px; object-fit:cover;"
 
-                    <div class="card-body">
+                >
 
-                        <h5 class="card-title">
-                            {{ property.title }}
-                        </h5>
 
-                        <p class="text-muted mb-1">
-                            📍 {{ property.township }}, {{property.city}}
-                        </p>
 
-                        <p class="fw-bold text-success fs-5">
-                            MMK {{ "{:,}".format(property.price) }}
-                        </p>
+                {% else %}
 
-                        <p>
-                            📏 {{ property.area }} {{ property.area_unit }}
-                        </p>
 
-                        <p>
-                            {{ property.description[:100] }}...
-                        </p>
 
-                    </div>
+                <img
 
-                    <div class="card-footer bg-white border-0">
+                src="https://placehold.co/600x400?text=No+Photo"
 
-                        <a href="{{ url_for('main.property_detail', property_id=property.id) }}"
-                           class="btn btn-success w-100">
-                            View Details
-                        </a>
+                class="card-img-top"
 
-                    </div>
+                style="height:250px; object-fit:cover;"
+
+                >
+
+
+
+                {% endif %}
+
+
+
+
+
+                <div class="card-body">
+
+
+
+                    <h5 class="card-title">
+
+                        {{ property.title }}
+
+                    </h5>
+
+
+
+
+                    <h6 class="text-success">
+
+                        MMK {{ "{:,}".format(property.price) }}
+
+                    </h6>
+
+
+
+
+                    <p class="card-text">
+
+
+                        📍 {{ property.township }}, {{ property.city }}
+
+
+                    </p>
+
+
+
+                    <p>
+
+                        📐 {{ property.area }}
+
+                        {{ property.area_unit }}
+
+                    </p>
+
+
+
+
+                    <a
+
+                    href="{{ url_for('main.property_detail', property_id=property.id) }}"
+
+                    class="btn btn-success w-100">
+
+
+                        View Details
+
+
+                    </a>
+
+
 
                 </div>
 
+
+
             </div>
 
-            {% endfor %}
+
 
         </div>
 
+
+
+
         {% else %}
 
-<div class="alert alert-info text-center">
 
-    {% if search %}
 
-        No properties matched your search.
+        <div class="text-center">
 
-    {% else %}
 
-        No properties available yet.
+            <h5>
 
-    {% endif %}
+                No properties found.
 
-</div>
+            </h5>
 
-{% endif %}
+
+        </div>
+
+
+
+        {% endfor %}
+
+
 
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center mt-5 py-4">
-        <p class="mb-0">
-            © 2026 LandHub Myanmar. All Rights Reserved.
-        </p>
-    </footer>
+
+</div>
+
+
 
 </body>
 
