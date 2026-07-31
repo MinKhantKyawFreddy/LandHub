@@ -1,9 +1,18 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    redirect,
+    url_for
+)
+import os
+from werkzeug.utils import secure_filename
 from flask_login import login_user, logout_user, current_user
 from werkzeug.security import check_password_hash
 
-from app.models import Agent, Property
+from app.models import Agent, Property, PropertyImage
 from app import db
+
 
 
 main = Blueprint("main", __name__)
@@ -138,6 +147,44 @@ def add_property():
         db.session.add(new_property)
 
         db.session.commit()
+
+        #Handle images uploads
+        images = request.files.getlist("images")
+
+        if images:
+
+            property_folder = os.path.join(
+                "uploads",
+                "properties",
+                str(new_property.id)
+            )   
+
+            os.makedirs(
+                property_folder,
+                exist_ok=True
+            )
+
+            for image in images:
+
+                if image.filename:
+
+                    filename = secure_filename(image.filename)
+
+                    image_path = os.path.join(
+                        property_folder,
+                        filename
+                    )
+
+                    image.save(image_path)
+
+                    property_image = PropertyImage(
+                        property_id=new_property.id,
+                        image_path=image_path
+                    )
+
+                    db.session.add(property_image)
+
+            db.session.commit()
 
 
         return redirect(
