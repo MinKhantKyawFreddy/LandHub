@@ -25,24 +25,23 @@ def create_app():
 
     app.config["SECRET_KEY"] = "change-this-later"
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = (
-    os.environ.get("DATABASE_URL")
-    or "sqlite:///instance/landhub.db")
+    # Make sure the instance folder exists
+    os.makedirs(app.instance_path, exist_ok=True)
 
+    app.config["SQLALCHEMY_DATABASE_URI"] = (
+        os.environ.get("DATABASE_URL")
+        or "sqlite:///" + os.path.join(app.instance_path, "landhub.db")
+    )
 
     db.init_app(app)
 
     login_manager.init_app(app)
 
-
     from app.routes import main
 
     app.register_blueprint(main)
 
-
     with app.app_context():
-
         db.create_all()
-
 
     return app
