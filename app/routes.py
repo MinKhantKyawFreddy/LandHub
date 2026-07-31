@@ -3,7 +3,8 @@ from flask import (
     render_template,
     request,
     redirect,
-    url_for
+    url_for,
+    send_from_directory
 )
 import os
 from werkzeug.utils import secure_filename
@@ -52,9 +53,9 @@ def property_detail(property_id):
 
     return render_template(
         "property_detail.html",
-        property=property
+        property=property,
+        images=property.images
     )
-
 
 @main.route("/login", methods=["GET", "POST"])
 def login():
@@ -238,6 +239,14 @@ def edit_property(property_id):
     return render_template(
         "edit_property.html",
         property=property
+    )
+
+@main.route("/uploads/<path:filename>")
+def uploaded_file(filename):
+
+    return send_from_directory(
+        "uploads",
+        filename
     )
 
 @main.route("/logout")
